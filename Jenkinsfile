@@ -17,7 +17,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     bat 'mvn clean package'
-                    bat '''mvn clean verify sonar:sonar'''
+                    bat '''mvn clean verify sonar:sonar -Dsonar.projectKey=api-customer-springboot -Dsonar.projectName=api-customer-springboot'''
                     echo 'SonarQube Analysis Completed'
                 }
             }
