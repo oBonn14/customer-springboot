@@ -8,7 +8,7 @@ pipeline {
         stage('Git Checkout') {
             steps {
                 checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/oBonn14/customer-springboot']])
-                bat 'mvn clean install'
+                sh 'mvn clean install'
                 echo 'Git Checkout Completed'
             }
         }
@@ -16,8 +16,8 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    bat 'mvn clean package'
-                    bat '''mvn clean verify sonar:sonar'''
+                    sh 'mvn clean package'
+                    sh 'mvn clean verify sonar:sonar'
                     echo 'SonarQube Analysis Completed'
                 }
             }
@@ -33,7 +33,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t bonbon153/api-customer-springboot .'
+                    sh 'docker build -t bonbon153/api-customer-springboot .'
                     echo 'Build Docker Image Completed'
                 }
             }
@@ -43,9 +43,9 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
-                        bat 'echo %dockerhub-password% | docker login -u bonbon153 --password-stdin'
+                        sh 'echo %dockerhub-password% | docker login -u bonbon153 --password-stdin'
                     }
-                    bat 'docker push bonbon153/api-customer-springboot'
+                    sh 'docker push bonbon153/api-customer-springboot'
                 }
             }
         }
@@ -53,7 +53,7 @@ pipeline {
         stage('Docker Run') {
             steps {
                 script {
-                    bat 'docker run -d --name rnd-springboot-3.0 -p 8099:8080 bonbon153/api-customer-springboot'
+                    sh 'docker run -d --name rnd-springboot-3.0 -p 8099:8080 bonbon153/api-customer-springboot'
                     echo 'Docker Run Completed'
                 }
             }
@@ -61,7 +61,7 @@ pipeline {
     }
     post {
         always {
-            bat 'docker logout'
+            sh 'docker logout'
         }
     }
 }
