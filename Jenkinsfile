@@ -1,8 +1,8 @@
 pipeline {
     agent any
-    tools {
-        maven 'jenkins-maven'
-    }
+//     tools {
+//         maven 'jenkins-maven'
+//     }
 
     stages {
         stage('Git Checkout') {
