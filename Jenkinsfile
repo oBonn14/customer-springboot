@@ -33,7 +33,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t bonbon153/api-customer-springboot .'
+                    bat 'docker build -t obon/api-customer-springboot .'
                     echo 'Build Docker Image Completed'
                 }
             }
@@ -45,7 +45,7 @@ pipeline {
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
                         bat 'echo %dockerhub-password% | docker login -u bonbon153 --password-stdin'
                     }
-                    bat 'docker push bonbon153/api-customer-springboot'
+                    bat 'docker push obon/api-customer-springboot'
                 }
             }
         }
@@ -53,7 +53,7 @@ pipeline {
         stage('Docker Run') {
             steps {
                 script {
-                    bat 'docker run -d --name api-customer-springboot -p 8099:8080 bonbon153/api-customer-springboot'
+                    bat 'docker run -d --name api-customer-springboot -p 8099:8080 obon/api-customer-springboot'
                     echo 'Docker Run Completed'
                 }
             }
