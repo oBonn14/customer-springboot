@@ -26,7 +26,9 @@ pipeline {
         stage("Quality Gate") {
             steps {
                 script {
-                    def status = waitForQuality abortPipeline: false
+                    def response = sh(script: "curl -u your_token: \"http://your-sonarqube-server/api/qualitygates/project_status?projectKey=api-customer-springboot\"", returnStdout: true)
+                    def jsonResponse = readJSON(text: response)
+                    def status = jsonResponse.projectStatus.status
                     echo "Quality Gate Status: ${status}"
                     if (status != 'OK') {
                         error "Quality Gate Failed"
@@ -35,6 +37,7 @@ pipeline {
                 echo 'Quality Gate Completed'
             }
         }
+
 
 
         stage('Build Docker Image') {
