@@ -17,7 +17,7 @@ pipeline {
             steps {
                 withSonarQubeEnv('SonarQube') {
                     bat 'mvn clean package'
-                    bat '''mvn clean verify sonar:sonar'''
+                    bat 'mvn clean verify sonar:sonar'
                     echo 'SonarQube Analysis Completed'
                 }
             }
@@ -53,7 +53,7 @@ pipeline {
         stage('Docker Run') {
             steps {
                 script {
-                    bat 'docker run -d --name rnd-springboot-3.0 -p 8099:8080 bonbon153/api-customer-springboot'
+                    bat 'docker run -d --name api-customer-springboot -p 8099:8080 bonbon153/api-customer-springboot'
                     echo 'Docker Run Completed'
                 }
             }
