@@ -25,15 +25,22 @@ pipeline {
 
         stage("Quality Gate") {
             steps {
-                waitForQuality abortPipeline: true
+                script {
+                    def status = waitForQuality abortPipeline: false
+                    echo "Quality Gate Status: ${status}"
+                    if (status != 'OK') {
+                        error "Quality Gate Failed"
+                    }
+                }
                 echo 'Quality Gate Completed'
             }
         }
 
+
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t bonbon153/api-customer-springboot -f path/to/Dockerfile .'
+                    bat 'docker build -t bonbon153/api-customer-springboot .'
                     echo 'Build Docker Image Completed'
                 }
             }
