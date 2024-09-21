@@ -39,16 +39,16 @@ pipeline {
             }
         }
 
-        stage('Docker Push') {
-            steps {
-                script {
-                    withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
-                        bat "echo %dockerhub-password% | docker login -u exsanal1515@gmail.com --password-stdin"
-                    }
-                    bat 'docker push obon/api-customer-springboot'
-                }
-            }
-        }
+//         stage('Docker Push') {
+//             steps {
+//                 script {
+//                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
+//                         bat 'echo %dockerhub-password% | docker login -u bonbon153 --password-stdin'
+//                     }
+//                     bat 'docker push obon/api-customer-springboot'
+//                 }
+//             }
+//         }
 
 
         stage('Docker Run') {
