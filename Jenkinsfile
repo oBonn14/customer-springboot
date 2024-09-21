@@ -43,7 +43,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
-                        bat 'echo %dockerhub-password% | docker login -u bonbon153 --password-stdin'
+                        bat 'docker login -u bonbon153 -p echo %dockerhub-password%'
                     }
                     bat 'docker push obon/api-customer-springboot'
                 }
