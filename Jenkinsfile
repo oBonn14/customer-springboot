@@ -23,12 +23,12 @@ pipeline {
             }
         }
 
-//         stage("Quality Gate") {
-//             steps {
-//                 waitForQuality abortPipeline: true
-//                 echo 'Quality Gate Completed'
-//             }
-//         }
+        stage("Quality Gate") {
+            steps {
+                waitForQuality abortPipeline: true
+                echo 'Quality Gate Completed'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
@@ -54,7 +54,7 @@ pipeline {
         stage('Docker Run') {
             steps {
                 script {
-                    bat 'docker run -d --name api-customer-springboot -p 8099:8080 obon/api-customer-springboot'
+                    bat 'docker run -d --name api-customer-springboot -p 8080:8080 obon/api-customer-springboot'
                     echo 'Docker Run Completed'
                 }
             }
