@@ -1,5 +1,5 @@
 # Gunakan image dasar dari OpenJDK
-FROM openjdk:17-jre-slim
+FROM openjdk:17-slim
 
 # Set direktori kerja di dalam kontainer
 WORKDIR /app
