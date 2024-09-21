@@ -33,7 +33,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    bat 'docker build -t bonbon153/api-customer-springboot .'
+                    bat 'docker build -t bonbon153/api-customer-springboot -f path/to/Dockerfile .'
                     echo 'Build Docker Image Completed'
                 }
             }
