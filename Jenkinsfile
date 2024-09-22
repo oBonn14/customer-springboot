@@ -67,14 +67,14 @@ pipeline {
         success {
                 script{
                      withCredentials([string(credentialsId: 'telegram-token', variable: 'token-telegram'), string(credentialsId: 'telegram-chat-id', variable: 'chat-id-tellegram')]) {
-                        bat ''' curl -s -X POST https://api.telegram.org/bot"%TOKEN%"/sendMessage -d chat_id="%CHAT_ID%" -d text="%TEXT_SUCCESS_BUILD%" '''
+                        bat ' curl -s -X POST https://api.telegram.org/bot"%token-telegram%"/sendMessage -d chat_id="%chat-id-tellegram%" -d text="%TEXT_SUCCESS_BUILD%" '
                      }
                 }
             }
             failure {
                 script{
                     withCredentials([string(credentialsId: 'telegram-token', variable: 'token-telegram'), string(credentialsId: 'telegram-chat-id', variable: 'chat-id-tellegram')]) {
-                        bat ''' curl -s -X POST https://api.telegram.org/bot"%TOKEN%"/sendMessage -d chat_id="%CHAT_ID%" -d text="%TEXT_FAILURE_BUILD%" '''
+                        bat ' curl -s -X POST https://api.telegram.org/bot"%token-telegram%"/sendMessage -d chat_id="%chat-id-tellegram%" -d text="%TEXT_FAILURE_BUILD%" '
                     }
                 }
             }
