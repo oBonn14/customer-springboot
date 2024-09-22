@@ -28,12 +28,12 @@ pipeline {
             }
         }
 
-//         stage("Quality Gate") {
-//             steps {
-//                 waitForQuality abortPipeline: true
-//                 echo 'Quality Gate Completed'
-//             }
-//         }
+        stage("Quality Gate") {
+            steps {
+                waitForQuality abortPipeline: true
+                echo 'Quality Gate Completed'
+            }
+        }
 
         stage('Build Docker Image') {
             steps {
