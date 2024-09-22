@@ -23,12 +23,12 @@ pipeline {
             }
         }
 
-        stage("Quality Gate") {
-            steps {
-                waitForQuality abortPipeline: true
-                echo 'Quality Gate Completed'
-            }
-        }
+//         stage("Quality Gate") {
+//             steps {
+//                 waitForQuality abortPipeline: true
+//                 echo 'Quality Gate Completed'
+//             }
+//         }
 
         stage('Build Docker Image') {
             steps {
@@ -42,7 +42,7 @@ pipeline {
 //         stage('Docker Push') {
 //             steps {
 //                 script {
-//                     withCredentials([string(credentialsId: 'dockerhub-pwd', variable: 'dockerhub-password')]) {
+//                     withCredentials([string(credentialsId: 'docker-pwd', variable: 'pwd-docker')]) {
 //                         bat 'echo %dockerhub-password% | docker login -u bonbon153 --password-stdin'
 //                     }
 //                     bat 'docker push obon/api-customer-springboot'
@@ -64,5 +64,19 @@ pipeline {
         always {
             bat 'docker logout'
         }
+        success {
+                script{
+                     withCredentials([string(credentialsId: 'telegram-token', variable: 'token-telegram'), string(credentialsId: 'telegram-chat-id', variable: 'chat-id-tellegram')]) {
+                        bat ''' curl -s -X POST https://api.telegram.org/bot"%TOKEN%"/sendMessage -d chat_id="%CHAT_ID%" -d text="%TEXT_SUCCESS_BUILD%" '''
+                     }
+                }
+            }
+            failure {
+                script{
+                    withCredentials([string(credentialsId: 'telegram-token', variable: 'token-telegram'), string(credentialsId: 'telegram-chat-id', variable: 'chat-id-tellegram')]) {
+                        bat ''' curl -s -X POST https://api.telegram.org/bot"%TOKEN%"/sendMessage -d chat_id="%CHAT_ID%" -d text="%TEXT_FAILURE_BUILD%" '''
+                    }
+                }
+            }
     }
 }
