@@ -21,8 +21,7 @@ pipeline {
         stage('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    bat 'mvn clean verify'
-                    bat 'mvn sonar:sonar'
+                    bat 'mvn clean verify sonar:sonar'
                     echo 'SonarQube Analysis Completed'
                 }
             }
