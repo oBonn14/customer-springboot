@@ -30,7 +30,7 @@ pipeline {
 
         stage("Quality Gate") {
             steps {
-                waitForQuality abortPipeline: true
+                waitForQualityGate abortPipeline: true
                 echo 'Quality Gate Completed'
 
             }
