@@ -50,17 +50,17 @@ public class CustomerService {
         esCustomerRepository.save(esCustomer);
 
         //kafka
-        kafkaTemplate.send("kafka-customer", customer);
+//        kafkaTemplate.send("kafka-customer", customer);
         return newCustomer;
     }
 
     //kafka
-    @Async
-    @KafkaListener(topics = "kafka-customer")
-    public void listen(String message){
-        receiverMessage = message;
-        log.info(message);
-    }
+//    @Async
+//    @KafkaListener(topics = "kafka-customer")
+//    public void listen(String message){
+//        receiverMessage = message;
+//        log.info(message);
+//    }
 
     public String getReceiverMessage(){
         return receiverMessage;

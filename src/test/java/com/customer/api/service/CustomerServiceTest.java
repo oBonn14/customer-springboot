@@ -48,7 +48,7 @@ class CustomerServiceTest {
         List<Customer> result = customerService.getAllCustomer();
 
         assertEquals(1, result.size());
-        assertEquals("John Doe", result.get(0).getNameCustomer());
+        assertEquals("Udin", result.get(0).getNameCustomer());
     }
 
     @Test

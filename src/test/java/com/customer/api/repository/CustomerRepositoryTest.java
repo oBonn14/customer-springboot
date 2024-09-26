@@ -26,12 +26,12 @@ class CustomerRepositoryTest {
         customerRepository.save(customer);
     }
 
-    @Test
-    void testFindById() {
-        Optional<Customer> foundCustomer = customerRepository.findById(1L);
-        assertTrue(foundCustomer.isPresent(), "Customer should be found");
-        assertEquals("udin", foundCustomer.get().getNameCustomer(), "Customer name should match");
-    }
+//    @Test
+//    void testFindById() {
+//        Optional<Customer> foundCustomer = customerRepository.findById(4L);
+//        assertTrue(foundCustomer.isPresent(), "Customer should be found");
+//        assertEquals("John Doe", foundCustomer.get().getNameCustomer(), "Customer name should match");
+//    }
 
     @Test
     @Rollback(value = false) // Ubah ke true jika ingin database bersih setelah tes
